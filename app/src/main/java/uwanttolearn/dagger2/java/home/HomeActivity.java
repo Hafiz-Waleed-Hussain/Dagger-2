@@ -36,23 +36,14 @@ public class HomeActivity extends AppCompatActivity {
 
         gitHubRepository = App.getApp().getGitHubRepository();
 
-        recyclerView = (RecyclerView) findViewById(R.id.MainActivity_recycler_view);
-        progressBar = (ProgressBar) findViewById(R.id.MainActivity_progress_bar);
-
-
-        layoutManager = new LinearLayoutManager(this);
-        homeAdapter = new HomeAdapter(new ArrayList<>());
-
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(homeAdapter);
-
+        initViews();
+        initRecyclerView();
         loadData();
-
-
         homeAdapter.getClickSubject().subscribe(gitHubUser -> DetailActivity.start(this,
                 gitHubUser.getLogin(), gitHubUser.getAvatarUrl()));
 
     }
+
 
     @Override
     protected void onDestroy() {
@@ -60,6 +51,19 @@ public class HomeActivity extends AppCompatActivity {
         if (disposable != null && !disposable.isDisposed())
             disposable.dispose();
     }
+
+    private void initViews() {
+        recyclerView = (RecyclerView) findViewById(R.id.MainActivity_recycler_view);
+        progressBar = (ProgressBar) findViewById(R.id.MainActivity_progress_bar);
+    }
+
+    private void initRecyclerView() {
+        layoutManager = new LinearLayoutManager(this);
+        homeAdapter = new HomeAdapter(new ArrayList<>());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(homeAdapter);
+    }
+
 
     private void loadData() {
         gitHubRepository.getUsers()
