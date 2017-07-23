@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,23 +29,20 @@ public class HomeActivity extends AppCompatActivity {
     private HomeAdapter homeAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Disposable disposable;
-
+    private Glide glide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         gitHubRepository = App.getApp().getGitHubRepository();
-
+        glide = App.getApp().getGlide();
         initViews();
         initRecyclerView();
         loadData();
         homeAdapter.getClickSubject().subscribe(gitHubUser -> DetailActivity.start(this,
                 gitHubUser.getLogin(), gitHubUser.getAvatarUrl()));
-
     }
-
 
     @Override
     protected void onDestroy() {
@@ -59,23 +58,20 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         layoutManager = new LinearLayoutManager(this);
-        homeAdapter = new HomeAdapter(new ArrayList<>());
+        homeAdapter = new HomeAdapter(new ArrayList<>(), glide);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(homeAdapter);
     }
-
 
     private void loadData() {
         gitHubRepository.getUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        gitHubUsers ->
+                .subscribe(gitHubUsers ->
                         {
                             homeAdapter.add(gitHubUsers);
                             progressBar.setVisibility(View.GONE);
                         },
-
                         error -> Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show(),
                         () -> {
                         },

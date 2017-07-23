@@ -58,6 +58,7 @@ public class DetailActivity extends AppCompatActivity {
     private DetailAdapter detailAdapter;
     private GitHubRepository gitHubRepository;
     private Disposable disposable;
+    private Glide glide;
 
 
     @Override
@@ -68,6 +69,7 @@ public class DetailActivity extends AppCompatActivity {
         String imageUrl = getIntent().getStringExtra("imageUrl");
         validate(username, imageUrl);
         gitHubRepository = App.getApp().getGitHubRepository();
+        glide = App.getApp().getGlide();
 
         initViews();
         initRecyclerView();
@@ -113,7 +115,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void loadImage(String imageUrl) {
-        Glide.with(this)
+        glide.with(this)
                 .load(imageUrl)
                 .into(picImageView);
     }
