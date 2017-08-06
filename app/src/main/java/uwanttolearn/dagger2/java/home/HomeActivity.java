@@ -29,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
     private HomeAdapter homeAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Disposable disposable;
-    private Glide glide;
+//    private Glide glide;
 
     private HomeActivityComponent homeActivityComponent;
 
@@ -39,11 +39,11 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         homeActivityComponent = DaggerHomeActivityComponent.builder()
-                .homeActivityModule(new HomeActivityModule(this))
+                .homeActivityModule(new HomeActivityModule(this, App.getApp().getGlide()))
                 .build();
 
         gitHubRepository = App.getApp().getGitHubRepository();
-        glide = App.getApp().getGlide();
+        // glide = App.getApp().getGlide();
         initViews();
         initRecyclerView();
         loadData();
@@ -67,7 +67,8 @@ public class HomeActivity extends AppCompatActivity {
 //      layoutManager = new LinearLayoutManager(this);
         layoutManager = homeActivityComponent.getLayoutManager();
 
-        homeAdapter = new HomeAdapter(new ArrayList<>(), glide);
+//        homeAdapter = new HomeAdapter(new ArrayList<>(), glide);
+        homeAdapter = homeActivityComponent.getHomeAdapter();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(homeAdapter);
     }
