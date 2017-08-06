@@ -1,10 +1,10 @@
 package uwanttolearn.dagger2.java.home;
 
-import java.util.ArrayList;
-
+import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import dagger.Module;
 import dagger.Provides;
-import uwanttolearn.dagger2.java.home.adapter.HomeAdapter;
 
 /**
  * Created by waleed on 06/08/2017.
@@ -12,5 +12,15 @@ import uwanttolearn.dagger2.java.home.adapter.HomeAdapter;
 @Module
 public class HomeActivityModule {
 
+    private final Context context;
+
+    public HomeActivityModule(Context context) {
+        this.context = context;
+    }
+
+    @Provides
+    public RecyclerView.LayoutManager layoutManager(){
+        return new LinearLayoutManager(context);
+    }
 
 }
