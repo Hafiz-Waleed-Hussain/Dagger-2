@@ -13,6 +13,7 @@ import dagger.Provides;
 import uwanttolearn.dagger2.java.app.App;
 import uwanttolearn.dagger2.java.home.adapter.HomeAdapter;
 import uwanttolearn.dagger2.java.repositories.github.GitHubRepository;
+import uwanttolearn.dagger2.java.utils.FormatString;
 
 /**
  * Created by waleed on 06/08/2017.
@@ -41,5 +42,10 @@ public class HomeActivityModule {
     @Provides
     public GitHubRepository gitHubRepository() {
         return App.getApp().getGitHubRepository();
+    }
+
+    @Provides
+    public FormatString formatString(){
+        return new FormatString("Hello Guys");
     }
 }

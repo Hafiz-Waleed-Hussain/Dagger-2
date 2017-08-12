@@ -22,6 +22,7 @@ import uwanttolearn.dagger2.java.app.App;
 import uwanttolearn.dagger2.java.detail.DetailActivity;
 import uwanttolearn.dagger2.java.home.adapter.HomeAdapter;
 import uwanttolearn.dagger2.java.repositories.github.GitHubRepository;
+import uwanttolearn.dagger2.java.utils.FormatString;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -35,8 +36,8 @@ public class HomeActivity extends AppCompatActivity {
     HomeAdapter homeAdapter;
     @Inject
     RecyclerView.LayoutManager layoutManager;
-
-
+    @Inject
+    FormatString formatString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

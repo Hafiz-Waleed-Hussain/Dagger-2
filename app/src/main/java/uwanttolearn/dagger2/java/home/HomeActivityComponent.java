@@ -13,6 +13,6 @@ import uwanttolearn.dagger2.java.repositories.github.GitHubRepository;
 public interface HomeActivityComponent {
 
     void inject(HomeActivity homeActivity);
-    
+
 }
 
