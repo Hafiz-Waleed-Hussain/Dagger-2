@@ -10,7 +10,9 @@ import java.util.ArrayList;
 
 import dagger.Module;
 import dagger.Provides;
+import uwanttolearn.dagger2.java.app.App;
 import uwanttolearn.dagger2.java.home.adapter.HomeAdapter;
+import uwanttolearn.dagger2.java.repositories.github.GitHubRepository;
 
 /**
  * Created by waleed on 06/08/2017.
@@ -36,4 +38,8 @@ public class HomeActivityModule {
         return new HomeAdapter(new ArrayList<>(), glide);
     }
 
+    @Provides
+    public GitHubRepository gitHubRepository() {
+        return App.getApp().getGitHubRepository();
+    }
 }

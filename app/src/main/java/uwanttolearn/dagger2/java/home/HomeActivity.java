@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -25,24 +27,35 @@ public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
-    private GitHubRepository gitHubRepository;
-    private HomeAdapter homeAdapter;
-    private RecyclerView.LayoutManager layoutManager;
     private Disposable disposable;
 //    private Glide glide;
 
-    private HomeActivityComponent homeActivityComponent;
+
+    @Inject
+    GitHubRepository gitHubRepository;
+    @Inject
+    HomeAdapter homeAdapter;
+    @Inject
+    RecyclerView.LayoutManager layoutManager;
+
+
+//    private HomeActivityComponent homeActivityComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        homeActivityComponent = DaggerHomeActivityComponent.builder()
+        DaggerHomeActivityComponent.builder()
                 .homeActivityModule(new HomeActivityModule(this, App.getApp().getGlide()))
-                .build();
+                .build().inject(this);
+//        homeActivityComponent = DaggerHomeActivityComponent.builder()
+//                .homeActivityModule(new HomeActivityModule(this, App.getApp().getGlide()))
+//                .build();
 
-        gitHubRepository = App.getApp().getGitHubRepository();
+//      gitHubRepository = App.getApp().getGitHubRepository();
+//        gitHubRepository = homeActivityComponent.getGitHubRepository();
+
         // glide = App.getApp().getGlide();
         initViews();
         initRecyclerView();
@@ -65,10 +78,10 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
 //      layoutManager = new LinearLayoutManager(this);
-        layoutManager = homeActivityComponent.getLayoutManager();
+//        layoutManager = homeActivityComponent.getLayoutManager();
 
 //        homeAdapter = new HomeAdapter(new ArrayList<>(), glide);
-        homeAdapter = homeActivityComponent.getHomeAdapter();
+//        homeAdapter = homeActivityComponent.getHomeAdapter();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(homeAdapter);
     }
