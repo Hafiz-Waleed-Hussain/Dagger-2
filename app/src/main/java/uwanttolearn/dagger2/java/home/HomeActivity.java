@@ -28,8 +28,6 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private Disposable disposable;
-//    private Glide glide;
-
 
     @Inject
     GitHubRepository gitHubRepository;
@@ -39,7 +37,6 @@ public class HomeActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
 
 
-//    private HomeActivityComponent homeActivityComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +46,6 @@ public class HomeActivity extends AppCompatActivity {
         DaggerHomeActivityComponent.builder()
                 .homeActivityModule(new HomeActivityModule(this, App.getApp().getGlide()))
                 .build().inject(this);
-//        homeActivityComponent = DaggerHomeActivityComponent.builder()
-//                .homeActivityModule(new HomeActivityModule(this, App.getApp().getGlide()))
-//                .build();
-
-//      gitHubRepository = App.getApp().getGitHubRepository();
-//        gitHubRepository = homeActivityComponent.getGitHubRepository();
-
-        // glide = App.getApp().getGlide();
         initViews();
         initRecyclerView();
         loadData();
@@ -77,11 +66,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-//      layoutManager = new LinearLayoutManager(this);
-//        layoutManager = homeActivityComponent.getLayoutManager();
-
-//        homeAdapter = new HomeAdapter(new ArrayList<>(), glide);
-//        homeAdapter = homeActivityComponent.getHomeAdapter();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(homeAdapter);
     }
