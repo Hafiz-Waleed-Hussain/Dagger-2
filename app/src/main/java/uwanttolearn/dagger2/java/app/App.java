@@ -14,28 +14,22 @@ import uwanttolearn.dagger2.java.repositories.github.GitHubServiceGenerator;
 public class App extends Application {
 
     private static App app;
-
-    private GitHubRepository gitHubRepository;
-    private Glide glide;
+    private AppComponent appComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
         app = this;
-        gitHubRepository = GitHubRepository.getInstance(GitHubServiceGenerator.gitHubService("https://api.github.com"));
-        glide = Glide.get(this);
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this, "https://api.github.com"))
+                .build();
     }
-
 
     public static App getApp() {
         return app;
     }
 
-    public GitHubRepository getGitHubRepository() {
-        return gitHubRepository;
-    }
-
-    public Glide getGlide() {
-        return glide;
+    public AppComponent getAppComponent() {
+        return appComponent;
     }
 }

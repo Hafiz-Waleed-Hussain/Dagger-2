@@ -45,7 +45,7 @@ public class HomeActivityModule {
     }
 
     @Provides
-    public FormatString formatString(){
+    public FormatString formatString() {
         return new FormatString("Hello Guys");
     }
 }
