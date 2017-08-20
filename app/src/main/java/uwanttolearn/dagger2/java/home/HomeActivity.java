@@ -45,7 +45,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         DaggerHomeActivityComponent.builder()
-                .homeActivityModule(new HomeActivityModule(this, App.getApp().getGlide()))
+                .appComponent(App.getApp().getAppComponent())
+                .homeActivityModule(new HomeActivityModule(this))
                 .build().inject(this);
         initViews();
         initRecyclerView();

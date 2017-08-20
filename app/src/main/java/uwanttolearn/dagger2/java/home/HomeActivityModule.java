@@ -18,15 +18,15 @@ import uwanttolearn.dagger2.java.utils.FormatString;
 /**
  * Created by waleed on 06/08/2017.
  */
+
+
 @Module
 public class HomeActivityModule {
 
     private final Context context;
-    private final Glide glide;
 
-    public HomeActivityModule(Context context, Glide glide) {
+    public HomeActivityModule(Context context) {
         this.context = context;
-        this.glide = glide;
     }
 
     @Provides
@@ -35,13 +35,8 @@ public class HomeActivityModule {
     }
 
     @Provides
-    public HomeAdapter homeAdapter() {
+    public HomeAdapter homeAdapter(Glide glide) {
         return new HomeAdapter(new ArrayList<>(), glide);
-    }
-
-    @Provides
-    public GitHubRepository gitHubRepository() {
-        return App.getApp().getGitHubRepository();
     }
 
     @Provides
