@@ -8,7 +8,11 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -23,18 +27,20 @@ public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
-    private GitHubRepository gitHubRepository;
-    private HomeAdapter homeAdapter;
-    private RecyclerView.LayoutManager layoutManager;
     private Disposable disposable;
+    @Inject
+    GitHubRepository gitHubRepository;
+    @Inject
+    HomeAdapter homeAdapter;
+    @Inject
+    RecyclerView.LayoutManager layoutManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        gitHubRepository = App.getApp().getGitHubRepository();
+        App.getApp().getAppComponent().plus(new HomeActivityModule(this));
 
         initViews();
         initRecyclerView();
@@ -58,8 +64,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        layoutManager = new LinearLayoutManager(this);
-        homeAdapter = new HomeAdapter(new ArrayList<>());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(homeAdapter);
     }

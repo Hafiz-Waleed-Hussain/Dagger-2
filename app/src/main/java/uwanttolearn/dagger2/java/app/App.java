@@ -13,13 +13,16 @@ public class App extends Application {
 
     private static App app;
 
-    private GitHubRepository gitHubRepository;
+    private AppComponent appComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
         app = this;
-        gitHubRepository = GitHubRepository.getInstance(GitHubServiceGenerator.gitHubService("https://api.github.com"));
+
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this, "https://api.github.com"))
+                .build();
     }
 
 
@@ -27,7 +30,7 @@ public class App extends Application {
         return app;
     }
 
-    public GitHubRepository getGitHubRepository() {
-        return gitHubRepository;
+    public AppComponent getAppComponent() {
+        return appComponent;
     }
 }

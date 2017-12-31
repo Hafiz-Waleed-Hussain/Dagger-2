@@ -67,7 +67,7 @@ public class DetailActivity extends AppCompatActivity {
         String username = getIntent().getStringExtra(Intent.EXTRA_TEXT);
         String imageUrl = getIntent().getStringExtra("imageUrl");
         validate(username, imageUrl);
-        gitHubRepository = App.getApp().getGitHubRepository();
+        //gitHubRepository = App.getApp().getGitHubRepository();
 
         initViews();
         initRecyclerView();

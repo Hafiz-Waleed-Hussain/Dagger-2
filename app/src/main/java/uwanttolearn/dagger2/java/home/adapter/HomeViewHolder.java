@@ -21,18 +21,20 @@ final class HomeViewHolder extends RecyclerView.ViewHolder {
     private final Observer<GitHubUser> clickObserrver;
     private final TextView nameTextView;
     private final ImageView picImageView;
+    private final Glide glide;
 
-    public HomeViewHolder(View itemView, Observer<GitHubUser> clickObserver) {
+    public HomeViewHolder(View itemView, Observer<GitHubUser> clickObserver, Glide glide) {
         super(itemView);
         nameTextView = (TextView) itemView.findViewById(R.id.RowHome_name_text_view);
         picImageView = (ImageView) itemView.findViewById(R.id.RowHome_user_image_view);
         parentView = itemView;
         this.clickObserrver = clickObserver;
+        this.glide = glide;
     }
 
     public void bind(GitHubUser gitHubUser) {
 
-        Glide.with(picImageView.getContext())
+        glide.with(picImageView.getContext())
                 .load(gitHubUser.getAvatarUrl())
                 .into(picImageView);
         nameTextView.setText(gitHubUser.getLogin());
