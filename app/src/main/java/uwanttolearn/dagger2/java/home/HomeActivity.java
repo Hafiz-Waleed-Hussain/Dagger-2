@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -61,6 +62,16 @@ public class HomeActivity extends AppCompatActivity {
         if (disposable != null && !disposable.isDisposed())
             disposable.dispose();
     }
+
+
+
+
+    @Inject
+    void glideMethodInjection(Glide glide){
+        Log.d("Method injection", glide.toString());
+    }
+
+
 
     private void initViews() {
         recyclerView = (RecyclerView) findViewById(R.id.MainActivity_recycler_view);
