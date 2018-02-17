@@ -6,7 +6,10 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
@@ -24,12 +27,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     private final Glide glide;
     private LayoutInflater layoutInflater;
     private Subject<GitHubUser> clickSubject;
-    private List<GitHubUser> gitHubUsers;
+    private List<GitHubUser> gitHubUsers = new ArrayList<>();
 
-    public HomeAdapter(List<GitHubUser> gitHubUsers, Glide glide) {
-        if (gitHubUsers == null)
-            throw new IllegalArgumentException("List<GitHubUser> required");
-        this.gitHubUsers = gitHubUsers;
+
+    @Inject
+    public HomeAdapter(Glide glide) {
         this.clickSubject = PublishSubject.create();
         this.glide = glide;
     }

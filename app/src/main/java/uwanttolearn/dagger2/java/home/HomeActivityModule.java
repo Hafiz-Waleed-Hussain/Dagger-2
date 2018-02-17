@@ -34,10 +34,10 @@ public class HomeActivityModule {
         return new LinearLayoutManager(context);
     }
 
-    @Provides
-    public HomeAdapter homeAdapter(Glide glide) {
-        return new HomeAdapter(new ArrayList<>(), glide);
-    }
+//    @Provides
+//    public HomeAdapter homeAdapter(Glide glide) {
+//        return new HomeAdapter(glide);
+//    }
 
     @Provides
     public FormatString formatString() {
